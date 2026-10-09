@@ -8,113 +8,136 @@
     />
     <meta
       name="description"
-      content="Victor Cardoso — Creative Developer &amp; Tech Enthusiast. Confira meus projetos e entre em contato."
+      content="{{seo.description}}"
     />
-    <meta name="author" content="Victor Cardoso" />
+    <meta name="author" content="{{profile.name}}" />
     <meta name="theme-color" content="#eaeaeb" />
 
+    <!-- Open Graph / Meta Compartilhamento -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://victorcardoso.com/" />
-    <meta property="og:title" content="Victor Cardoso | Editorial Portfolio" />
+    <meta property="og:url" content="{{seo.url}}" />
+    <meta property="og:title" content="{{seo.title}}" />
     <meta
       property="og:description"
-      content="Explore meu ecossistema digital. Projetos, contatos e redes sociais em uma experiência minimalista."
+      content="{{seo.description}}"
     />
+    <meta property="og:image" content="{{profile.avatar}}" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{seo.title}}" />
+    <meta name="twitter:description" content="{{seo.description}}" />
+    <meta name="twitter:image" content="{{profile.avatar}}" />
+
+    <!-- JSON-LD Estruturado para AEO / SGE -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "{{profile.name}}",
+        "jobTitle": "{{profile.subtitle}}",
+        "url": "{{seo.url}}",
+        "image": "{{profile.avatar}}",
+        "knowsAbout": [
+          {{#each seo.skills}}
+            "{{this}}"{{#unless @last}},{{/unless}}
+          {{/each}}
+        ],
+        "sameAs": [
+          {{#each links}}
+            "{{this.url}}"{{#unless @last}},{{/unless}}
+          {{/each}}
+        ]
+      }
+    </script>
+
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <title>Victor Cardoso | Links</title>
+    <title>{{seo.title}}</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload crítico da fonte editorial local para eliminar FOIT/FOUT -->
+    <link
+      rel="preload"
+      href="/src/assets/fonts/Melodrama/Melodrama-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
 
   <body data-page="home">
-    <!-- 
-    ========================================================================
-      Olá, Recrutador(a) / Dev Curioso! 👀
-
-      Que legal ver você inspecionando meu DOM. Gosta do que vê?
-      Repositório limpo, CSS enxuto, tipagem rigorosa e arquitetura sólida. 🚀
-      
-      Vamos conversar! Me chama no WhatsApp ali no formulário ou nos links.
-      
-          /\_/\  
-         ( o.o ) 
-          > ^ <  
-    ========================================================================
-    -->
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <!-- Container principal -->
     <main id="main-content" class="app-container">
       
-      <!-- [DESKTOP ONLY] Card Esquerdo: Formulário WhatsApp -->
-      <section class="profile-card desktop-only">
+      <!-- [DESKTOP ONLY] Card Esquerdo: Formulário WhatsApp & Links -->
+      <section class="profile-card desktop-only" aria-labelledby="desktop-heading">
         <div class="card-header anim-el" style="text-align: left; align-items: flex-start; padding-bottom: 2rem;">
-          <h1 class="profile-name" style="font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400;">Vamos Conversar</h1>
+          <h1 id="desktop-heading" class="profile-name" style="font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 400;">Vamos Conversar</h1>
         </div>
         
         <!-- Links em Pílula [DESKTOP] -->
         <nav class="links-section anim-el" aria-label="Links Sociais Desktop" style="flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 0.8rem; margin-top: -1rem; margin-bottom: 2rem;">
-          <a href="https://victorcardoso.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
-            Portfólio
+          {{#each links}}
+          <a href="{{this.url}}" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+            {{this.text}}
           </a>
-          <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
-            Repositório
-          </a>
-          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" class="link-item" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
-            LinkedIn
-          </a>
+          {{/each}}
         </nav>
 
-        <form id="whatsapp-form" class="contact-form anim-el">
+        <form id="whatsapp-form" class="contact-form anim-el" aria-label="Formulário de Contato Direto">
+          <!-- Campo Honeypot para neutralização de bots e scrapers automatizados -->
+          <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+            <input type="text" name="_hp_company" id="_hp_company" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="form-row">
             <div class="form-group">
-              <input type="text" id="firstName" name="firstName" placeholder="Nome" required />
+              <label for="firstName" class="sr-only">Nome</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Nome" aria-label="Seu primeiro nome" required autocomplete="given-name" />
             </div>
             <div class="form-group">
-              <input type="text" id="lastName" name="lastName" placeholder="Sobrenome" required />
+              <label for="lastName" class="sr-only">Sobrenome</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Sobrenome" aria-label="Seu sobrenome" autocomplete="family-name" />
             </div>
           </div>
 
           <div class="form-group">
-            <textarea id="message" name="message" placeholder="Mensagem" rows="1" required></textarea>
+            <label for="message" class="sr-only">Mensagem</label>
+            <textarea id="message" name="message" placeholder="Mensagem" rows="1" aria-label="Sua mensagem para Victor Cardoso" required></textarea>
           </div>
 
           <div class="form-submit-container">
-            <button type="submit" class="submit-btn">Enviar</button>
+            <button type="submit" id="whatsapp-submit-btn" class="submit-btn" aria-label="Conversar no WhatsApp">Iniciar Conversa no WhatsApp 💬</button>
           </div>
         </form>
 
         <footer class="contact-footer anim-el">
           <div class="contact-info">
-            <span class="info-label">ENDEREÇO</span>
-            <p>123 Balboa Boulevard Newport<br>Beach, CA 92662</p>
+            <span class="info-label">LOCALIZAÇÃO</span>
+            <p>{{contact.location}}</p>
           </div>
           <div class="contact-info">
             <span class="info-label">E-MAIL</span>
-            <p>hello@sasha.com</p>
+            <p><a href="mailto:{{contact.email}}" style="color: inherit; text-decoration: none;">{{contact.email}}</a></p>
           </div>
         </footer>
         
         <!-- Grade de Ícones Sociais [DESKTOP] -->
         <div class="social-icons-grid anim-el" style="margin-top: 2rem; justify-content: flex-start; gap: 1.5rem;">
-          <a href="https://instagram.com/abaxu_artes" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram">
-            <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+          {{#each socials}}
+          <a href="{{this.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{this.label}}">
+            <ion-icon name="{{this.icon}}" aria-hidden="true"></ion-icon>
           </a>
-          <a href="mailto:victorcardosovc1@gmail.com" aria-label="Enviar Email">
-            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-          </a>
-          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
-            <ion-icon name="logo-whatsapp" aria-hidden="true"></ion-icon>
-          </a>
+          {{/each}}
         </div>
       </section>
 
       <!-- HERO COVER: Usado no mobile (topo) e no desktop (direita) -->
-      <section class="hero-cover">
+      <section class="hero-cover" aria-label="Imagem de destaque">
         <!-- Circular Badge [DESKTOP ONLY] -->
-        <div class="circular-badge desktop-only">
+        <div class="circular-badge desktop-only" aria-hidden="true">
           <svg viewBox="0 0 100 100">
             <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
             <text>
@@ -123,57 +146,50 @@
           </svg>
         </div>
         <img
-          src="/src/assets/avatar.jpg"
-          alt="Retrato de Victor Cardoso"
+          src="{{profile.avatar}}"
+          alt="{{profile.avatarAlt}}"
           loading="eager"
+          fetchpriority="high"
           width="420"
           height="480"
         />
       </section>
 
       <!-- [MOBILE ONLY] LinkTree Clássico -->
-      <section class="profile-card mobile-only">
-        <div class="card-header anim-el">
-          <h1 class="profile-name">Victor Cardoso</h1>
-          <p class="profile-subtitle">Engenheiro de Software & UI Designer</p>
-        </div>
+      <section class="profile-card mobile-only" aria-labelledby="mobile-heading">
+        <header class="card-header anim-el">
+          <h1 id="mobile-heading" class="profile-name">{{profile.name}}</h1>
+          <p class="profile-subtitle">{{profile.subtitle}}</p>
+        </header>
 
         <!-- Links Minimalistas -->
-        <nav class="links-section anim-el" aria-label="Links Sociais">
-          <a href="https://victorcardoso.vercel.app/" target="_blank" rel="noopener noreferrer" class="link-item">
-            Portfólio
+        <nav class="links-section anim-el" aria-label="Links Principais">
+          {{#each links}}
+          <a href="{{this.url}}" target="_blank" rel="noopener noreferrer" class="link-item">
+            {{this.text}}
           </a>
-          <a href="https://github.com/VictorCardosoOl" target="_blank" rel="noopener noreferrer" class="link-item">
-            Repositório
-          </a>
-          <a href="https://www.linkedin.com/in/victor-card-cunha/" target="_blank" rel="noopener noreferrer" class="link-item">
-            LinkedIn
-          </a>
+          {{/each}}
         </nav>
 
         <!-- Grade de Ícones Sociais -->
-        <div class="social-icons-grid anim-el">
-          <a href="https://instagram.com/abaxu_artes" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram">
-            <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+        <div class="social-icons-grid anim-el" aria-label="Redes Sociais">
+          {{#each socials}}
+          <a href="{{this.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{this.label}}">
+            <ion-icon name="{{this.icon}}" aria-hidden="true"></ion-icon>
           </a>
-          <a href="mailto:victorcardosovc1@gmail.com" aria-label="Enviar Email">
-            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-          </a>
-          <a href="https://wa.me/5511977440146" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
-            <ion-icon name="logo-whatsapp" aria-hidden="true"></ion-icon>
-          </a>
+          {{/each}}
         </div>
 
         <footer class="anim-el text-center">
-          <a href="https://victor-cardoso-dev.vercel.app" rel="noopener noreferrer">
-            &copy; 2026 Victor Cardoso
+          <a href="{{footer.url}}" target="_blank" rel="noopener noreferrer">
+            &copy; {{footer.year}} {{footer.name}}
           </a>
         </footer>
       </section>
 
     </main>
 
-    <!-- IonIcons CDN (Resolve problema de SVGs não injetados no build do Vite) -->
+    <!-- IonIcons com fallback e defer para proteger Core Web Vitals -->
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

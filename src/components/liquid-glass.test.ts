@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { initLiquidGlass } from './liquid-glass.js';
+import { initLiquidGlass } from './liquid-glass';
 
 describe('Liquid Glass Component', () => {
   it('should be a function', () => {

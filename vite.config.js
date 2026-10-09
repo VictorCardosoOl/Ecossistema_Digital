@@ -18,7 +18,8 @@ const DataSchema = z.object({
   seo: z.object({
     title: z.string(),
     description: z.string(),
-    url: z.string().url()
+    url: z.string().url(),
+    skills: z.array(z.string()).optional()
   }),
   links: z.array(z.object({
     url: z.string().url(),
@@ -30,14 +31,10 @@ const DataSchema = z.object({
     icon: z.string(),
     label: z.string()
   })).optional(),
-  gallery: z.object({
-    title: z.string(),
-    subtitle: z.string(),
-    items: z.array(z.object({
-      src: z.string(),
-      icon: z.string(),
-      alt: z.string()
-    }))
+  contact: z.object({
+    location: z.string(),
+    email: z.string().email(),
+    phone: z.string()
   }).optional(),
   footer: z.object({
     year: z.number(),

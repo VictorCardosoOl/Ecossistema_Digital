@@ -8,7 +8,8 @@
   "seo": {
     "title": "Victor Cardoso | Creative Developer & UI Designer",
     "description": "Portfólio de Victor Cardoso — Engenheiro de Software e UI Designer focado em desenvolver aplicações de alta performance e experiências digitais memoráveis.",
-    "url": "https://victorcardoso.com/"
+    "url": "https://victorcardoso.com/",
+    "skills": ["TypeScript", "React", "Node.js", "UI/UX Design", "Performance Web", "CSS Moderno"]
   },
   "links": [
     {
@@ -44,31 +45,10 @@
       "label": "WhatsApp"
     }
   ],
-  "gallery": {
-    "title": "Obras & Arte",
-    "subtitle": "Portfólio visual — fotografia e design",
-    "items": [
-      {
-        "src": "/src/assets/gallery-1.jpg",
-        "icon": "heart",
-        "alt": "Obra fotográfica 1"
-      },
-      {
-        "src": "/src/assets/gallery-2.jpg",
-        "icon": "star-outline",
-        "alt": "Obra fotográfica 2"
-      },
-      {
-        "src": "/src/assets/gallery-3.jpg",
-        "icon": "heart-outline",
-        "alt": "Obra fotográfica 3"
-      },
-      {
-        "src": "/src/assets/gallery-4.jpg",
-        "icon": "aperture-outline",
-        "alt": "Obra fotográfica 4"
-      }
-    ]
+  "contact": {
+    "location": "São Paulo, SP — Brasil",
+    "email": "victorcardosovc1@gmail.com",
+    "phone": "5511977440146"
   },
   "footer": {
     "year": 2026,
