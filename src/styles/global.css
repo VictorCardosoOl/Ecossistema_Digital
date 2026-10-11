@@ -32,9 +32,9 @@
   /* Layout Base 8 */
   --app-max-width: 32rem; /* ~512px */
   --app-desktop-width: 64rem; /* ~1024px */
-  --card-radius: 2.5rem; /* 40px */
+  --card-radius: 2.2rem;
   --pill-radius: 999rem;
-  --cover-height: calc(50dvh + 3rem); /* Foto ocupa exatos 50% visualmente */
+  --cover-height: 55dvh; /* Foto preenche a parte superior com presença */
   
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -153,9 +153,9 @@ body::before {
 /* GLASSMORPHISM CARD */
 .profile-card {
   position: relative;
-  margin-top: -3rem;
+  margin-top: -3.5rem;
   width: 100%;
-  flex-grow: 1; /* Preenche os 50% restantes */
+  flex-grow: 1; /* Preenche a parte restante sem sobras */
   background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 0.5) 100%);
   backdrop-filter: blur(1.5rem) saturate(160%);
   -webkit-backdrop-filter: blur(1.5rem) saturate(160%);
@@ -163,19 +163,20 @@ body::before {
   border-top: 1px solid rgba(255, 255, 255, 0.6);
   border-left: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
-  padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 5vw, 1.5rem) clamp(0.5rem, 2vh, 1rem); /* Ainda mais enxuto */
+  padding: 1rem 1.25rem 0.5rem; /* Padding reduzido para eliminar espaço morto */
   z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Distribui o conteǧdo */
+  justify-content: flex-start; /* Agrupamento compacto e coeso */
+  gap: 0.6rem; /* Gaps enxutos entre as seções */
   box-shadow: 0 -0.625rem 2.5rem rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 0.5);
-  overflow-y: auto; /* Permite scroll apenas no card se a tela for extremamente pequena */
-  scrollbar-width: none; /* Esconde scrollbar no Firefox */
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .profile-card::-webkit-scrollbar {
-  display: none; /* Esconde scrollbar no Chrome/Safari */
+  display: none;
 }
 
 /* Header inside card */
@@ -185,24 +186,25 @@ body::before {
   align-items: center;
   text-align: center;
   width: 100%;
+  margin-bottom: 0.2rem;
 }
 
 .profile-name {
   font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 7vw, 2.8rem); /* Levemente reduzido para focar no mobile */
+  font-size: clamp(2.3rem, 9vw, 3.4rem); /* Título grande e impactante */
   font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
-  margin-bottom: 0.15rem;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  margin-bottom: 0.2rem;
   color: #000;
 }
 
 .profile-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(0.7rem, 2.2vw, 0.85rem); 
+  font-size: clamp(0.85rem, 3.2vw, 1.1rem); /* Subtítulo legível e destacado */
   color: var(--color-text-muted);
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -211,8 +213,8 @@ body::before {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* Menos gap */
-  margin: 0.5rem 0;
+  gap: 0.45rem; /* Gap mínimo entre botões para tirar espaço ocioso */
+  margin: 0;
 }
 
 .link-item {
@@ -221,14 +223,14 @@ body::before {
   justify-content: center;
   gap: 0.75rem;
   width: 100%;
-  padding: 0.8rem 1rem; /* Botoes menos altos */
+  padding: 0.95rem 1.25rem; /* Botões encorpados */
   background: transparent;
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--pill-radius);
   color: var(--color-text-main);
   text-decoration: none;
   font-family: var(--font-sans);
-  font-size: clamp(0.9rem, 3.5vw, 1.1rem); 
+  font-size: clamp(1.15rem, 4.5vw, 1.35rem); /* Texto dos botões grande */
   font-weight: 700;
   letter-spacing: 0.03em;
   transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s, border-color 0.3s;
@@ -238,7 +240,8 @@ body::before {
 .link-item:hover,
 .link-item:focus-visible {
   outline: none;
-  color: var(--color-text-main); 
+  color: #fff;
+  background: #000;
 }
 
 .link-item:focus-visible {
@@ -247,7 +250,7 @@ body::before {
 
 .link-item:hover ion-icon,
 .link-item:focus-visible ion-icon {
-  color: var(--color-text-main);
+  color: #fff;
   transform: scale(1.1);
 }
 
@@ -264,17 +267,18 @@ body::before {
   align-items: center;
   gap: 1rem;
   width: 100%;
+  margin: 0.15rem 0;
 }
 
 .social-icons-grid a {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem; /* 48px - Área de toque ideal WCAG 2.2 */
-  height: 3rem;
+  width: 3.5rem; /* 56px - Ícone circular grande */
+  height: 3.5rem;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   transition: transform 0.3s var(--ease-elastic), background 0.3s, border-color 0.3s;
   will-change: transform;
 }
@@ -288,8 +292,8 @@ body::before {
 .social-icons-grid a ion-icon {
   color: var(--color-text-main);
   stroke: var(--color-text-main);
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.7rem; /* Ícones internos bem visíveis */
+  height: 1.7rem;
   transition: color 0.3s, stroke 0.3s, transform 0.3s;
 }
 
@@ -310,8 +314,9 @@ body::before {
 
 .mobile-only footer {
   text-align: center;
-  padding: 0.5rem 0 0;
-  font-size: 0.65rem;
+  padding: 0;
+  margin-top: auto;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   opacity: 0.8;
   width: 100%;

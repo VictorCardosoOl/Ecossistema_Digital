@@ -5,7 +5,7 @@
   "description": "Página pessoal de links do Victor Cardoso — animações baseadas em física, UI com efeito vidro (glassmorphism), pronto para PWA.",
   "main": "script.js",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "vite",
