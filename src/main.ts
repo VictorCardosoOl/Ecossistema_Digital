@@ -176,7 +176,7 @@ function setupWhatsAppForm(): void {
       }
       setTimeout(() => {
         if (submitBtn) {
-          submitBtn.textContent = 'Iniciar Conversa no WhatsApp 💬';
+          submitBtn.textContent = 'Iniciar Conversa no WhatsApp';
         }
       }, 3000);
       return;
@@ -212,7 +212,7 @@ function setupWhatsAppForm(): void {
     } finally {
       setTimeout(() => {
         if (submitBtn) {
-          submitBtn.textContent = 'Iniciar Conversa no WhatsApp 💬';
+          submitBtn.textContent = 'Iniciar Conversa no WhatsApp';
           submitBtn.disabled = false;
         }
       }, 2000);

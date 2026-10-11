@@ -124,10 +124,11 @@ body::before {
 .app-container {
   width: 100%;
   max-width: var(--app-max-width);
-  height: 100dvh; /* Garante que nǜo ultrapasse a tela */
+  height: 100dvh; /* Garante que não ultrapasse a tela */
+  min-height: -webkit-fill-available;
   background-color: #ffffff;
   position: relative;
-  overflow: hidden; /* MantǸm a imagem fixa no mobile */
+  overflow: hidden; /* Mantém a imagem fixa no mobile */
   box-shadow: 0 2.5rem 6.25rem rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -163,7 +164,7 @@ body::before {
   border-top: 1px solid rgba(255, 255, 255, 0.6);
   border-left: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
-  padding: 1rem 1.25rem 0.5rem; /* Padding reduzido para eliminar espaço morto */
+  padding: 1rem 1.25rem calc(0.6rem + env(safe-area-inset-bottom, 0px)); /* Padding com suporte a barra de navegação/home do celular */
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -233,25 +234,39 @@ body::before {
   font-size: clamp(1.15rem, 4.5vw, 1.35rem); /* Texto dos botões grande */
   font-weight: 700;
   letter-spacing: 0.03em;
-  transition: transform 0.3s var(--ease-elastic), background 0.3s, color 0.3s, border-color 0.3s;
+  transition: transform 0.2s var(--ease-elastic), background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   will-change: transform;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.link-item:hover,
-.link-item:focus-visible {
-  outline: none;
-  color: #fff;
+/* Hover apenas para dispositivos com mouse/ponteiro real */
+@media (hover: hover) and (pointer: fine) {
+  .link-item:hover {
+    outline: none;
+    color: #fff;
+    background: #000;
+  }
+
+  .link-item:hover ion-icon {
+    color: #fff;
+    transform: scale(1.1);
+  }
+}
+
+/* Estado de toque e foco acessível */
+.link-item:active {
+  transform: scale(0.97);
   background: #000;
+  color: #fff;
+}
+
+.link-item:active ion-icon {
+  color: #fff;
 }
 
 .link-item:focus-visible {
-  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.4);
-}
-
-.link-item:hover ion-icon,
-.link-item:focus-visible ion-icon {
-  color: #fff;
-  transform: scale(1.1);
+  outline: 2px solid #000;
+  outline-offset: 2px;
 }
 
 .link-item ion-icon {
@@ -284,8 +299,8 @@ body::before {
 }
 
 .social-icons-grid a:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.4);
+  outline: 2px solid #000;
+  outline-offset: 2px;
 }
 
 .social-icons-grid a svg,
@@ -297,20 +312,34 @@ body::before {
   transition: color 0.3s, stroke 0.3s, transform 0.3s;
 }
 
-.social-icons-grid a:hover,
-.social-icons-grid a:focus-visible {
+/* Hover para ponteiro de mouse */
+@media (hover: hover) and (pointer: fine) {
+  .social-icons-grid a:hover {
+    background: var(--glass-dark-bg);
+    border-color: var(--glass-dark-bg);
+  }
+
+  .social-icons-grid a:hover svg,
+  .social-icons-grid a:hover ion-icon {
+    color: #fff;
+    stroke: #fff;
+    transform: scale(1.08);
+  }
+}
+
+/* Toque no celular */
+.social-icons-grid a:active {
+  transform: scale(0.92);
   background: var(--glass-dark-bg);
   border-color: var(--glass-dark-bg);
 }
 
-.social-icons-grid a:hover svg,
-.social-icons-grid a:focus-visible svg,
-.social-icons-grid a:hover ion-icon,
-.social-icons-grid a:focus-visible ion-icon {
+.social-icons-grid a:active svg,
+.social-icons-grid a:active ion-icon {
   color: #fff;
   stroke: #fff;
-  transform: scale(1.08);
 }
+
 
 .mobile-only footer {
   text-align: center;
