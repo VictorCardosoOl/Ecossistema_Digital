@@ -89,7 +89,8 @@
         <form id="whatsapp-form" class="contact-form anim-el" aria-label="Formulário de Contato Direto">
           <!-- Campo Honeypot para neutralização de bots e scrapers automatizados -->
           <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
-            <input type="text" name="_hp_company" id="_hp_company" tabindex="-1" autocomplete="off" />
+            <label for="_hp_company" class="sr-only">Não preencha este campo</label>
+            <input type="text" name="_hp_company" id="_hp_company" tabindex="-1" autocomplete="off" aria-label="Honeypot" />
           </div>
 
           <div class="form-row">
@@ -109,7 +110,7 @@
           </div>
 
           <div class="form-submit-container">
-            <button type="submit" id="whatsapp-submit-btn" class="submit-btn" aria-label="Conversar no WhatsApp">Iniciar Conversa no WhatsApp 💬</button>
+            <button type="submit" id="whatsapp-submit-btn" class="submit-btn" aria-label="Iniciar Conversa no WhatsApp">Iniciar Conversa no WhatsApp 💬</button>
           </div>
         </form>
 
